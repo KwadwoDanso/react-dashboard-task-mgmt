@@ -22,3 +22,13 @@ export function sortTasks(tasks: Task[], sortBy: SortBy): Task[] {
     if (sortBy === "title") sorted.sort((a, b) => a.title.localeCompare(b.title));
     return sorted;
 }
+
+// Validate form data — returns errors for invalid fields
+export function validateForm(data: TaskFormData): FormErrors {
+    const errors: FormErrors = {};
+    if (!data.title.trim()) errors.title = "Title is required";
+    else if (data.title.trim().length < 3) errors.title = "Title must be at least 3 characters";
+    if (data.description.trim().length > 200) errors.description = "Description must be 200 characters or fewer";
+    if (!data.dueDate) errors.dueDate = "Due date is required";
+    return errors;
+}
