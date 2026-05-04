@@ -32,3 +32,14 @@ export function validateForm(data: TaskFormData): FormErrors {
     if (!data.dueDate) errors.dueDate = "Due date is required";
     return errors;
 }
+// Format ISO date string as readable string
+export function formatDate(iso: string): string {
+    if (!iso) return "";
+    const d = new Date(iso);
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+// Generate a unique ID
+export function generateId(): string {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
