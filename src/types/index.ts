@@ -15,3 +15,26 @@ export interface Task {
     dueDate: string;
     createdAt: number;
 }
+
+// Form data (the task fields without id/createdAt)
+export interface TaskFormData {
+    title: string;
+    description: string;
+    status: TaskStatus;
+    priority: TaskPriority;
+    dueDate: string;
+}
+
+// Form errors — each field optional, only set when invalid
+export interface FormErrors {
+    title?: string;
+    description?: string;
+    dueDate?: string;
+}
+
+// Filter selections
+export interface TaskFilters {
+    status?: TaskStatus;
+    priority?: TaskPriority;
+    search: string;
+}
