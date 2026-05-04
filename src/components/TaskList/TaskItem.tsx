@@ -62,3 +62,46 @@ function TaskItem({ task, onStatusChange, onDelete, onEdit, onDragStart, onDragO
                         <span>Due: <strong>{formatDate(task.dueDate)}</strong></span>
                     </div>
                 </div>
+
+                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
+                    <select
+                        value={task.status}
+                        onChange={handleStatusChange}
+                        style={{
+                            padding: "0.4rem 0.6rem",
+                            border: `1px solid ${isDark ? "#4b5563" : "#d1d5db"}`,
+                            borderRadius: "6px",
+                            fontSize: "0.85rem",
+                            backgroundColor: isDark ? "#1f2937" : "#ffffff",
+                            color: isDark ? "#e5e7eb" : "#111827",
+                            cursor: "pointer",
+                        }}
+                    >
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                    <button onClick={() => onEdit(task)} style={btn("#f59e0b")}>Edit</button>
+                    <button onClick={handleDelete} style={btn("#ef4444")}>Delete</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// Small button style helper
+function btn(bg: string) {
+    return {
+        padding: "0.4rem 0.8rem",
+        backgroundColor: bg,
+        color: "#fff",
+        border: "none",
+        borderRadius: "6px",
+        cursor: "pointer",
+        fontSize: "0.85rem",
+        transition: "transform 0.15s ease",
+    };
+}
+
+export default TaskItem;
