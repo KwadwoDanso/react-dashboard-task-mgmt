@@ -27,4 +27,38 @@ function TaskItem({ task, onStatusChange, onDelete, onEdit, onDragStart, onDragO
 
     const handleDelete = () => {
         if (confirm("Delete this task?")) onDelete(task.id);
-    };
+    }; 
+
+    return (
+        <div
+            draggable
+            onDragStart={() => onDragStart(task.id)}
+            onDragOver={onDragOver}
+            onDrop={() => onDrop(task.id)}
+            style={{
+                backgroundColor: statusBg,
+                borderLeft: `4px solid ${priorityColor}`,
+                padding: "1rem 1.25rem",
+                borderRadius: "12px",
+                marginBottom: "0.75rem",
+                cursor: "grab",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                opacity: isDragging ? 0.4 : 1,
+                transform: isDragging ? "scale(0.98)" : "scale(1)",
+                boxShadow: isDark ? "0 2px 8px rgba(0,0,0,0.3)" : "0 2px 8px rgba(0,0,0,0.06)",
+                color: isDark ? "#e5e7eb" : "#111827",
+                textDecoration: task.status === "completed" ? "line-through" : "none",
+                animation: "slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+        >
+            <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
+                <div style={{ flex: 1, minWidth: "200px" }}>
+                    <h3 style={{ margin: "0 0 0.25rem", fontSize: "1.05rem", fontWeight: 600 }}>{task.title}</h3>
+                    {task.description && (
+                        <p style={{ margin: "0 0 0.5rem", fontSize: "0.9rem", opacity: 0.8 }}>{task.description}</p>
+                    )}
+                    <div style={{ display: "flex", gap: "1rem", fontSize: "0.8rem", opacity: 0.7, flexWrap: "wrap" }}>
+                        <span>Priority: <strong>{task.priority}</strong></span>
+                        <span>Due: <strong>{formatDate(task.dueDate)}</strong></span>
+                    </div>
+                </div>
