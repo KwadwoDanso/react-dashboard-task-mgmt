@@ -12,3 +12,13 @@ export function filterTasks(tasks: Task[], filters: TaskFilters): Task[] {
         return true;
     });
 }
+
+// Sort tasks by chosen field
+export function sortTasks(tasks: Task[], sortBy: SortBy): Task[] {
+    const priorityOrder: Record<string, number> = { high: 0, medium: 1, low: 2 };
+    const sorted = [...tasks];
+    if (sortBy === "dueDate") sorted.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+    if (sortBy === "priority") sorted.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+    if (sortBy === "title") sorted.sort((a, b) => a.title.localeCompare(b.title));
+    return sorted;
+}
