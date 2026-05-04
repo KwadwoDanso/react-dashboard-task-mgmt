@@ -38,3 +38,40 @@ export interface TaskFilters {
     priority?: TaskPriority;
     search: string;
 }
+
+// Component prop types
+export interface TaskListProps {
+    tasks: Task[];
+    onStatusChange: (id: string, status: TaskStatus) => void;
+    onDelete: (id: string) => void;
+    onEdit: (task: Task) => void;
+    onReorder: (fromId: string, toId: string) => void;
+    theme: Theme;
+}
+
+export interface TaskItemProps {
+    task: Task;
+    onStatusChange: (id: string, status: TaskStatus) => void;
+    onDelete: (id: string) => void;
+    onEdit: (task: Task) => void;
+    onDragStart: (id: string) => void;
+    onDragOver: (e: React.DragEvent) => void;
+    onDrop: (id: string) => void;
+    isDragging: boolean;
+    theme: Theme;
+}
+
+export interface TaskFormProps {
+    onSubmit: (data: TaskFormData) => void;
+    onCancel: () => void;
+    initialData?: Task;
+    theme: Theme;
+}
+
+export interface TaskFilterProps {
+    filters: TaskFilters;
+    onFilterChange: (filters: TaskFilters) => void;
+    sortBy: SortBy;
+    onSortChange: (sort: SortBy) => void;
+    theme: Theme;
+}
