@@ -37,3 +37,25 @@ function TaskList({ tasks, onStatusChange, onDelete, onEdit, onReorder, theme }:
             </div>
         );
     }
+
+    return (
+        <div>
+            {tasks.map((task) => (
+                <TaskItem
+                    key={task.id}
+                    task={task}
+                    onStatusChange={onStatusChange}
+                    onDelete={onDelete}
+                    onEdit={onEdit}
+                    onDragStart={handleDragStart}
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    isDragging={draggingId === task.id}
+                    theme={theme}
+                />
+            ))}
+        </div>
+    );
+}
+
+export default TaskList;
