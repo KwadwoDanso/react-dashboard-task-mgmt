@@ -114,3 +114,61 @@ function Dashboard() {
     const bgGradient = isDark
         ? "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)"
         : "linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #f5f3ff 100%)";
+
+    return (
+        <div style={{ minHeight: "100vh", background: bgGradient, transition: "background 0.5s ease", padding: "2rem 1rem" }}>
+            <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+
+                {/* Header */}
+                <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
+                    <div>
+                        <h1 style={{ margin: 0, fontSize: "2rem", fontWeight: 700, color: isDark ? "#f3f4f6" : "#1e1b4b", letterSpacing: "-0.02em" }}>
+                            Task Dashboard
+                        </h1>
+                        <p style={{ margin: "0.25rem 0 0", fontSize: "0.95rem", color: isDark ? "#a5b4fc" : "#6366f1", fontWeight: 500 }}>
+                            Stay organized and ship your goals
+                        </p>
+                    </div>
+
+                    <button onClick={toggleTheme} style={{
+                        padding: "0.6rem 1.25rem",
+                        backgroundColor: isDark ? "rgba(255,255,255,0.1)" : "rgba(99,102,241,0.15)",
+                        color: isDark ? "#f3f4f6" : "#3730a3",
+                        border: `1px solid ${isDark ? "rgba(255,255,255,0.2)" : "rgba(99,102,241,0.3)"}`,
+                        borderRadius: "9999px",
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        backdropFilter: "blur(8px)",
+                        transition: "all 0.3s ease",
+                    }}>
+                        {isDark ? "Light Mode" : "Dark Mode"}
+                    </button>
+                </header>
+
+                {/* Stats grid */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.75rem", marginBottom: "1.5rem" }}>
+                    <Stat label="Total" value={stats.total} color="#6366f1" isDark={isDark} />
+                    <Stat label="Pending" value={stats.pending} color="#f59e0b" isDark={isDark} />
+                    <Stat label="In Progress" value={stats.inProgress} color="#3b82f6" isDark={isDark} />
+                    <Stat label="Completed" value={stats.completed} color="#10b981" isDark={isDark} />
+                </div>
+
+                {/* Add task button (hidden when form is open) */}
+                {!showForm && (
+                    <button onClick={handleAddNew} style={{
+                        padding: "0.75rem 1.5rem",
+                        background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "10px",
+                        cursor: "pointer",
+                        fontSize: "0.95rem",
+                        fontWeight: 600,
+                        marginBottom: "1.25rem",
+                        boxShadow: "0 4px 12px rgba(99,102,241,0.3)",
+                        transition: "transform 0.2s ease",
+                    }}>
+                        + Add New Task
+                    </button>
+                )}
