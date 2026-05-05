@@ -85,3 +85,43 @@ function TaskForm({ onSubmit, onCancel, initialData, theme }: TaskFormProps) {
                 <textarea id="description" name="description" value={formData.description} onChange={handleChange} style={{ ...inputStyle(!!errors.description), minHeight: "70px", resize: "vertical" as const }} placeholder="Add details (optional)" />
                 {errors.description && <p style={errorStyle}>{errors.description}</p>}
             </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                <div>
+                    <label style={labelStyle} htmlFor="status">Status</label>
+                    <select id="status" name="status" value={formData.status} onChange={handleChange} style={inputStyle(false)}>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style={labelStyle} htmlFor="priority">Priority</label>
+                    <select id="priority" name="priority" value={formData.priority} onChange={handleChange} style={inputStyle(false)}>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div>
+                    <label style={labelStyle} htmlFor="dueDate">Due Date *</label>
+                    <input id="dueDate" name="dueDate" type="date" value={formData.dueDate} onChange={handleChange} style={inputStyle(!!errors.dueDate)} />
+                    {errors.dueDate && <p style={errorStyle}>{errors.dueDate}</p>}
+                </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button type="submit" style={{ padding: "0.6rem 1.25rem", backgroundColor: "#10b981", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: 600 }}>
+                    {initialData ? "Save Changes" : "Add Task"}
+                </button>
+                <button type="button" onClick={onCancel} style={{ padding: "0.6rem 1.25rem", backgroundColor: isDark ? "#4b5563" : "#9ca3af", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+                    Cancel
+                </button>
+            </div>
+        </form>
+    );
+}
+
+export default TaskForm;
+
