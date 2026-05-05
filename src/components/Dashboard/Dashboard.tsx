@@ -172,3 +172,59 @@ function Dashboard() {
                         + Add New Task
                     </button>
                 )}
+
+                {/* Form (only when showForm is true) */}
+                {showForm && (
+                    <TaskForm onSubmit={handleSubmit} onCancel={handleCancel} initialData={editingTask || undefined} theme={theme} />
+                )}
+
+                {/* Filters */}
+                <TaskFilter filters={filters} onFilterChange={setFilters} sortBy={sortBy} onSortChange={setSortBy} theme={theme} />
+
+                {/* Counter line */}
+                <p style={{ fontSize: "0.85rem", color: isDark ? "#9ca3af" : "#6b7280", marginBottom: "0.75rem" }}>
+                    Showing {visibleTasks.length} of {tasks.length} task{tasks.length === 1 ? "" : "s"}
+                </p>
+
+                {/* List */}
+                <TaskList
+                    tasks={visibleTasks}
+                    onStatusChange={handleStatusChange}
+                    onDelete={handleDelete}
+                    onEdit={handleEdit}
+                    onReorder={handleReorder}
+                    theme={theme}
+                />
+            </div>
+
+            {/* Inline keyframes — kept here so we don't need a separate CSS file */}
+            <style>{`
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        button:hover { transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+        select:focus, input:focus, textarea:focus { border-color: #6366f1 !important; }
+      `}</style>
+        </div>
+    );
+}
+
+// Small stat card component
+function Stat({ label, value, color, isDark }: { label: string; value: number; color: string; isDark: boolean }) {
+    return (
+        <div style={{
+            padding: "1rem 1.25rem",
+            backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.7)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "12px",
+            border: `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.5)"}`,
+            transition: "transform 0.3s ease",
+        }}>
+            <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1px", color: isDark ? "#9ca3af" : "#6b7280", fontWeight: 600 }}>{label}</div>
+            <div style={{ fontSize: "1.75rem", fontWeight: 700, color: color, marginTop: "0.25rem" }}>{value}</div>
+        </div>
+    );
+}
+
+export default Dashboard;
