@@ -72,3 +72,39 @@ function TaskFilter({ filters, onFilterChange, sortBy, onSortChange, theme }: Ta
                     <option value="priority">Sort: Priority</option>
                     <option value="title">Sort: Title</option>
                 </select>
+
+                {hasActive && (
+                    <button onClick={clearAll} style={{ padding: "0.55rem 0.9rem", backgroundColor: "#6b7280", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer", fontSize: "0.85rem" }}>
+                        Clear
+                    </button>
+                )}
+            </div>
+
+            {/* Active filter chips — visual indicators */}
+            {hasActive && (
+                <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginTop: "0.75rem" }}>
+                    {filters.search && <Chip label={`Search: "${filters.search}"`} isDark={isDark} />}
+                    {filters.status && <Chip label={`Status: ${filters.status}`} isDark={isDark} />}
+                    {filters.priority && <Chip label={`Priority: ${filters.priority}`} isDark={isDark} />}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function Chip({ label, isDark }: { label: string; isDark: boolean }) {
+    return (
+        <span style={{
+            padding: "0.2rem 0.65rem",
+            backgroundColor: isDark ? "rgba(99,102,241,0.25)" : "#e0e7ff",
+            color: isDark ? "#c7d2fe" : "#3730a3",
+            borderRadius: "9999px",
+            fontSize: "0.75rem",
+            fontWeight: 600,
+        }}>
+            {label}
+        </span>
+    );
+}
+
+export default TaskFilter;
