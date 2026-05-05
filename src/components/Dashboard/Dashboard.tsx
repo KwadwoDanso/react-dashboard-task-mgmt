@@ -64,3 +64,53 @@ function Dashboard() {
     const handleDelete = (id: string) => {
         setTasks((prev) => prev.filter((t) => t.id !== id));
     };
+
+    const handleEdit = (task: Task) => {
+        setEditingTask(task);
+        setShowForm(true);
+    };
+
+    // Reorder via drag and drop — move dragged task to position of target task
+    const handleReorder = (fromId: string, toId: string) => {
+        setTasks((prev) => {
+            const fromIdx = prev.findIndex((t) => t.id === fromId);
+            const toIdx = prev.findIndex((t) => t.id === toId);
+            if (fromIdx === -1 || toIdx === -1) return prev;
+            const next = [...prev];
+            const [moved] = next.splice(fromIdx, 1);
+            next.splice(toIdx, 0, moved);
+            return next;
+        });
+    };
+
+    const handleCancel = () => {
+        setShowForm(false);
+        setEditingTask(null);
+    };
+
+    const handleAddNew = () => {
+        setEditingTask(null);
+        setShowForm(true);
+    };
+
+    const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
+
+    // ===== DERIVED STATE =====
+
+    // Compute stats from tasks
+    const stats = {
+        total: tasks.length,
+        pending: tasks.filter((t) => t.status === "pending").length,
+        inProgress: tasks.filter((t) => t.status === "in-progress").length,
+        completed: tasks.filter((t) => t.status === "completed").length,
+    };
+
+    // Apply filter then sort to get displayed tasks
+    const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
+
+    const isDark = theme === "dark";
+
+    // Gradient backgrounds inspired by the uploaded designs
+    const bgGradient = isDark
+        ? "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)"
+        : "linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #f5f3ff 100%)";
