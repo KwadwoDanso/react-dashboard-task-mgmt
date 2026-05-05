@@ -1,8 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+// App.tsx — root component just renders the Dashboard
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <div>Task Dashboard</div>
-  </React.StrictMode>
-);
+import Dashboard from "./components/Dashboard/Dashboard";
+
+function App() {
+  return <Dashboard />;
+}
+
+export default App;
